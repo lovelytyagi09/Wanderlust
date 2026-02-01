@@ -1,0 +1,229 @@
+<% layout("/layouts/boilerplate") %>
+    <style>
+        .category-bar {
+            display: flex;
+            gap: 32px;
+            justify-content: space-between;
+            /* Space between icons */
+            overflow-x: auto;
+            /* Allows scrolling if screen is small */
+            padding-bottom: 10px;
+            /* Hide scrollbar for cleaner look */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .category-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            display: inline-block;
+            align-items: center;
+            gap: 8px;
+            min-width: 64px;
+            /* Ensures items don't squish */
+            cursor: pointer;
+            color: #717171;
+            /* Inactive gray color */
+            opacity: 0.7;
+            transition: all 0.2s ease;
+            padding-bottom: 12px;
+            border-bottom: 2px solid transparent;
+            /* Invisible border for hover effect */
+        }
+
+        /* Icon Sizing */
+        .category-item i {
+            font-size: 24px;
+        }
+
+        /* Text Styling */
+        .category-item span {
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* Hover State */
+        .category-item:hover {
+            opacity: 1;
+            color: #000000;
+            border-bottom: 2px solid #DDDDDD;
+            /* Light gray underline on hover */
+        }
+
+        /* Active State (The "OMG!" selection) */
+        .category-item.active {
+            opacity: 1;
+            color: #000000;
+            border-bottom: 2px solid #000000;
+            /* Black underline for active */
+        }
+
+        .category-item i {
+            font-size: 25px;
+        }
+
+        /* --- MOBILE MENU BUTTON STYLING (Hidden by default) --- */
+        .mobile-toggle-btn {
+            display: none;
+            /* Hidden on Desktop */
+            background: white;
+            border: 1px solid #DDDDDD;
+            border-radius: 50%;
+            /* Makes it a circle */
+            padding: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #222222;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+            transition: all 0.2s;
+            margin-bottom: 20px;
+            /* Space below button */
+        }
+
+        .mobile-toggle-btn:hover {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+            background-color: #f7f7f7;
+        }
+
+        /* --- RESPONSIVE SWAP LOGIC --- */
+
+        /* ON MOBILE (Screen smaller than 768px) */
+        @media (max-width: 768px) {
+
+            /* 1. Hide the icon list */
+            .category-bar {
+                display: none;
+            }
+
+            /* 2. Show the menu button */
+            .mobile-toggle-btn {
+                display: inline-block;
+            }
+        }
+
+        /* ON DESKTOP (Screen larger than 768px) */
+        @media (min-width: 769px) {
+
+            /* Ensure list is visible and button is hidden */
+            .category-bar {
+                display: flex;
+            }
+
+            .mobile-toggle-btn {
+                display: none;
+            }
+        }
+
+        .left {
+            gap: 20px;
+            display: flex;
+        }
+
+        .tax-info {
+            display: none;
+        }
+
+        .tax-toggler {
+            border: 3px solid rgb(54 51 51 / 27%);
+            border-radius: 1rem;
+            height: 2.91rem;
+            padding: 0.25rem;
+            margin-left: 2.5rem;
+        }
+        
+    </style>
+
+    <body>
+        <button class="mobile-toggle-btn">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="category-bar">
+            <div class="left">
+                <div class="category-item">
+                    <i class="fa-solid fa-tractor"></i>
+                    <span>Farms</span>
+                </div>
+
+                <div class="category-item">
+                    <i class="fa-solid fa-bed"></i>
+                    <span>Rooms</span>
+                </div>
+
+                <div class="category-item">
+                    <i class="fa-solid fa-mountain-sun"></i>
+                    <span>Amazing views</span>
+                </div>
+
+                <div class="category-item">
+                    <i class="fa-solid fa-city"></i>
+                    <span>Iconic cities</span>
+                </div>
+
+                <div class="category-item">
+                    <i class="fa-solid fa-person-swimming"></i>
+                    <span>Amazing pools</span>
+                </div>
+
+                <div class="category-item">
+                    <i class="fa-solid fa-umbrella-beach"></i>
+                    <span>Beach</span>
+                </div>
+                <div class="category-item">
+                    <i class="fa-solid fa-fire"></i>
+                    <span>Fire</span>
+                </div>
+                <div class="category-item">
+                    <i class="fa-solid fa-bed"></i>
+                    <span>Bed</span>
+                </div>
+            </div>
+            <div class="right">
+                <div class="form-check form-switch form-check-reverse tax-toggler">
+                    <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+                    <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+                </div>
+            </div>
+        </div>
+        <!-- <form method="GET" action="/listings/new"><button>Create</button></form> -->
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-lg-1 mt-3">
+            <% for( let lists of AllList){ %>
+                <a href="/listings/<%=lists._id%>" class="listing-link">
+                    <div class="card col">
+                        <img src="<%= lists.image.url %>" class="card-img-top" style="height: 20rem;" alt="...">
+                        <div class="card-body">
+                            <div class="card-img-overlay">
+                            </div>
+                            <p class="card-text"> <b>
+                                    <%= lists.title %>
+                                </b>
+                                <br /> &#8377; <%= lists.price%> /night
+                                    <i class="tax-info"> &nbsp; &nbsp; +18% GST</i>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                <% } %>
+        </div>
+        <script>
+            let taxSwitch = document.getElementById("switchCheckDefault");
+
+            taxSwitch.addEventListener("click", () => {
+                let taxInfo = document.getElementsByClassName("tax-info");
+                for (info of taxInfo) {
+                    if (info.style.display != "inline") {
+
+                        info.style.display = "inline";
+                    }
+                    else {
+                        info.style.display = "none";
+                    }
+                }
+            });
+        </script>
+
+    </body>
