@@ -1,120 +1,134 @@
 <style>
-/* --- Search Bar Container --- */
-.search-bar {
-  display: flex;
-  align-items: center;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
-  border-radius: 40px;
-  padding: 0 8px 0 24px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
-  height: 48px;
-  width: fit-content;
-}
-
-/* Helper to group the text parts */
-.search-text-group {
+  /* --- Search Bar Container --- */
+  .search-bar {
     display: flex;
     align-items: center;
-}
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 40px;
+    padding: 0 8px 0 24px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
+    height: 48px;
+    width: fit-content;
+  }
 
-.search-text {
-  font-size: 14px;
-  font-weight: 600;
-  color: #222222;
-  white-space: nowrap;
-}
+  /* Helper to group the text parts */
+  .search-text-group {
+    display: flex;
+    align-items: center;
+  }
 
-.search-divider {
-  height: 24px;
-  width: 1px;
-  background-color: #dddddd;
-  margin: 0 16px;
-}
+  .search-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #222222;
+    white-space: nowrap;
+  }
 
-.search-input {
-  border: none;
-  background: transparent;
-  outline: none;
-  font-size: 14px;
-  color: #222222;
-  width: 150px;
-  padding-left: 10px;
-}
+  .search-divider {
+    height: 24px;
+    width: 1px;
+    background-color: #dddddd;
+    margin: 0 16px;
+  }
 
-.search-icon-btn {
-  background-color: #ff385c;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 10px;
-  cursor: pointer;
-}
+  .search-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 14px;
+    color: #222222;
+    width: 150px;
+    padding-left: 10px;
+  }
 
-/* --- RESPONSIVE LOGIC --- */
+  .search-icon-btn {
+    background-color: #ff385c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    cursor: pointer;
+  }
 
-/* DESKTOP (Large Screens) */
-@media (min-width: 768px) {
+  /* --- RESPONSIVE LOGIC --- */
+
+  /* DESKTOP (Large Screens) */
+  @media (min-width: 768px) {
+
     /* Absolute centering for the search bar */
     .search-bar {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        margin: 0;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
     }
-}
+  }
 
-/* MOBILE (Small Screens) */
-@media (max-width: 768px) {
-  /* 1. Hide the "Anywhere | Any week" text */
-  .search-text-group {
-    display: none; 
-  }
-  
-  /* 2. Make the search bar fit between Logo and Toggler */
-  .search-bar {
-    padding: 0 5px 0 10px;
-    height: 40px; /* Slightly shorter on mobile */
-    margin: 0 10px; /* Space between logo and toggler */
-    flex-grow: 1; /* Allow it to take available space */
-    justify-content: space-between;
-  }
-  
-  /* 3. Allow input to shrink if needed */
-  .search-input {
-    width: 100%;
-    font-size: 13px;
-  }
-  
-  /* 4. Ensure the toggler button is visible */
-  .navbar-toggler {
-      border: none; /* Cleaner look */
+  /* MOBILE (Small Screens) */
+  @media (max-width: 768px) {
+
+    /* 1. Hide the "Anywhere | Any week" text */
+    .search-text-group {
+      display: none;
+    }
+
+    /* 2. Make the search bar fit between Logo and Toggler */
+    .search-bar {
+      padding: 0 5px 0 10px;
+      height: 40px;
+      /* Slightly shorter on mobile */
+      margin: 0 10px;
+      /* Space between logo and toggler */
+      flex-grow: 1;
+      /* Allow it to take available space */
+      justify-content: space-between;
+    }
+
+    /* 3. Allow input to shrink if needed */
+    .search-input {
+      width: 100%;
+      font-size: 13px;
+    }
+
+    /* 4. Ensure the toggler button is visible */
+    .navbar-toggler {
+      border: none;
+      /* Cleaner look */
       padding: 5px;
+    }
   }
-}
+
+  /* Moves the pink button down when the menu is open */
+  .push-down {
+    margin-top: 280px !important;
+    /* Adjust this value if it needs to go lower */
+    transition: margin-top 0.3s ease;
+    /* Smooth animation */
+  }
 </style>
 
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top mb-3">
   <div class="container-fluid">
-    
+
     <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i></a>
 
     <form class="search-bar" action="/listings">
-        <div class="search-text-group">
-            <div class="search-text">Anywhere</div>
-            <div class="search-divider"></div>
-            <div class="search-text">Any week</div>
-            <div class="search-divider"></div>
-        </div>
-        <input type="text" class="search-input" name="q" placeholder="Search Airbnb">
-        <button class="search-icon-btn" type="submit">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
+      <div class="search-text-group">
+        <div class="search-text">Anywhere</div>
+        <div class="search-divider"></div>
+        <div class="search-text">Any week</div>
+        <div class="search-divider"></div>
+      </div>
+      <input type="text" class="search-input" name="q" placeholder="Search Airbnb">
+      <button class="search-icon-btn" type="submit">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
     </form>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -134,14 +148,33 @@
           <li class="nav-item">
             <a class="nav-link" href="/login"><b>Log In </b></a>
           </li>
-        <% } %>
-        <% if(currUser) { %>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">Log Out</a>
-          </li>
-        <% } %>
+          <% } %>
+            <% if(currUser) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Log Out</a>
+              </li>
+              <% } %>
       </ul>
     </div>
 
   </div>
 </nav>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1. Find the Main Navbar Button (from navbar.ejs)
+    const mainNavbarToggle = document.querySelector(".navbar-toggler");
+
+    // 2. Find the Pink Category Button (from index.ejs)
+    const pinkCategoryBtn = document.querySelector(".mobile-toggle-btn");
+
+    // 3. Check if both exist (to prevent errors)
+    if (mainNavbarToggle && pinkCategoryBtn) {
+
+      // 4. Add Click Event
+      mainNavbarToggle.addEventListener("click", () => {
+        // This toggles the margin on the pink button
+        pinkCategoryBtn.classList.toggle("push-down");
+      });
+    }
+  });
+</script>
