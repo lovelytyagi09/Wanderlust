@@ -1,86 +1,32 @@
 <style>
+  /* --- Search Bar Container --- */
   .search-bar {
     display: flex;
     align-items: center;
     background-color: #ffffff;
     border: 1px solid #dddddd;
     border-radius: 40px;
-    /* Fully rounded corners */
     padding: 0 8px 0 24px;
-    /* Padding: Top, Right (near button), Bottom, Left */
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
     transition: box-shadow 0.2s ease;
-    cursor: pointer;
     height: 48px;
-    margin: 117px;
-    /* Fixed height for consistency */
+    /* IMPORTANT: Use flex-grow logic or fit-content, remove fixed huge margins */
+    width: fit-content;
+    margin-top: 10px;
+    /* Small spacing for mobile stack */
+    margin-bottom: 10px;
   }
 
-  /* Hover effect */
   .search-bar:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
   }
 
-  /* Text styles */
-  .search-text {
-    font-size: 14px;
-    font-weight: 600;
-    /* Semi-bold */
-    color: #222222;
-    padding: 0 16px;
-    /* Space around text */
-    white-space: nowrap;
-  }
-
-  /* "Add guests" should look like a placeholder (lighter gray) */
-  .search-text.search-placeholder {
-    color: #717171;
-    font-weight: 400;
-  }
-
-  /* The vertical gray lines */
-  .search-divider {
-    height: 24px;
-    width: 1px;
-    background-color: #dddddd;
-  }
-
-  /* The pink search button */
-  .search-icon-btn {
-
-    /* Airbnb pink */
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
+  /* Helper to group the text parts so we can hide them easily */
+  .search-text-group {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-left: 7px;
-    /* Space between text and button */
   }
 
-  /* Icon size inside the button */
-  .search-icon-btn i {
-    font-size: 12px;
-  }
-
-  /* Ensure the container aligns everything in a row */
-  .search-bar {
-    display: flex;
-    align-items: center;
-    background-color: #ffffff;
-    border: 1px solid #dddddd;
-    border-radius: 40px;
-    padding: 0 8px 0 24px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
-    height: 48px;
-    width: fit-content;
-    /* Adjust this if you want it wider */
-  }
-
-  /* Existing text styles */
   .search-text {
     font-size: 14px;
     font-weight: 600;
@@ -95,25 +41,22 @@
     margin: 0 16px;
   }
 
-  /* NEW: The Invisible Input Field */
   .search-input {
     border: none;
     background: transparent;
     outline: none;
     font-size: 14px;
     color: #222222;
-    width: 100px;
-    /* Adjust width as needed */
-    padding: 0;
+    width: 150px;
+    /* Gave it slightly more room */
+    padding-left: 10px;
   }
 
-  /* Style the placeholder to match the original 'Add guests' grey */
   .search-input::placeholder {
     color: #717171;
     font-weight: 400;
   }
 
-  /* The Pink Button */
   .search-icon-btn {
     background-color: #ff385c;
     color: white;
@@ -124,104 +67,89 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 10px;
-    cursor: pointer;
+    margin-left: auto;
+    /* Pushes button to the end */
   }
 
-  .search-icon-btn i {
-    font-size: 12px;
+  /* --- RESPONSIVE FIXES --- */
+  @media (min-width: 768px) {
+
+    /* On Desktop: Reset margins to be centered by Bootstrap's mx-auto */
+    .search-bar {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
   }
 
-  /* 1. Target the list item to create the "Pill" container */
-  .navbar-nav .nav-item {
-    background-color: #ffffff;
-    border: 1px solid #dddddd;
-    /* Light grey border matching search bar */
-    border-radius: 40px;
-    /* Fully rounded corners */
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08),
-      0 4px 12px rgba(0, 0, 0, 0.05);
-    /* Soft shadow */
-    transition: all 0.2s ease;
+  @media (max-width: 768px) {
 
-    /* Spacing and Layout */
-    margin-left: 12px;
-    /* Space between the buttons */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    /* On Mobile: Hide the "Anywhere | Any week" text to save space */
+    .search-text-group {
+      display: none;
+    }
 
-  /* 2. Style the link inside (Text) */
-  .navbar-nav .nav-item .nav-link {
-    color: #222222 !important;
-    /* Dark grey text */
-    font-weight: 600;
-    /* Semi-bold text */
-    font-size: 14px;
-    /* Consistent font size */
-    padding: 10px 20px;
-    /* Inner spacing for clickable area */
-    white-space: nowrap;
-    /* Prevents text wrapping */
-  }
+    /* Make the search bar fill the mobile menu width if desired */
+    .search-bar {
+      width: 100%;
+      justify-content: space-between;
+    }
 
-  /* 3. Hover Effect (Lift up slightly) */
-  .navbar-nav .nav-item:hover {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
-    /* Darker shadow */
-    background-color: #f7f7f7;
-    /* Very light grey background on hover */
-    cursor: pointer;
+    .search-input {
+      width: 100%;
+      /* Let input take available space */
+    }
   }
 </style>
 
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top mb-3">
   <div class="container-fluid">
     <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i></a>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
 
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+      <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="/listings">Explore</a>
         </li>
       </ul>
+
+      <form class="search-bar mx-auto" action="/listings">
+        <div class="search-text-group">
+          <div class="search-text">Anywhere</div>
+          <div class="search-divider"></div>
+          <div class="search-text">Any week</div>
+          <div class="search-divider"></div>
+        </div>
+        <input type="text" class="search-input" name="q" placeholder="Search Airbnb">
+        <button class="search-icon-btn" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </form>
+
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/listings/new">Airbnb your home</a>
+        </li>
+        <% if(!currUser) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/signup"><b>Sign Up</b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login"><b>Log In </b></a>
+          </li>
+          <% } %>
+            <% if(currUser) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Log Out</a>
+              </li>
+              <% } %>
+      </ul>
+
     </div>
-    <form class="search-bar" action="/listings">
-      <div class="search-text">Anywhere</div>
-      <div class="search-divider"></div>
-      <div class="search-text">Any week</div>
-      <div class="search-divider"></div>
-
-      <input type="text" class="search-input" name="q" placeholder="Search Airbnb">
-
-      <button class="search-icon-btn" type="submit">
-
-      </button>
-    </form>
-
-
-    <ul class="navbar-nav ms-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/listings/new">Airbnd your home</a>
-      </li>
-      <% if(!currUser) { %>
-        <li class="nav-item">
-          <a class="nav-link" href="/signup"><b>Sign Up</b></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/login"><b>Log In </b></a>
-        </li>
-        <% } %>
-          <% if(currUser) { %>
-            <li class="nav-item">
-              <a class="nav-link" href="/logout">Log Out</a>
-            </li>
-    </ul>
-    <% } %>
   </div>
 </nav>
