@@ -119,6 +119,17 @@
             }
         }
 
+        @media (max-width: 768px) {
+            .category-bar.show-mobile {
+                display: flex !important;
+                /* Forces it to show */
+                flex-wrap: wrap;
+                /* Allows icons to wrap into multiple lines if needed */
+                justify-content: center;
+                /* Centers them */
+            }
+        }
+
         .left {
             gap: 20px;
             display: flex;
@@ -135,7 +146,6 @@
             padding: 0.25rem;
             margin-left: 2.5rem;
         }
-        
     </style>
 
     <body>
@@ -224,6 +234,17 @@
                     }
                 }
             });
+
+            // 1. Select the elements
+            const mobileBtn = document.querySelector(".mobile-toggle-btn");
+            const categoryBar = document.querySelector(".category-bar");
+
+            if (mobileBtn && categoryBar) {
+                mobileBtn.addEventListener("click", () => {
+                    // 3. Toggle the class 'show-mobile'
+                    categoryBar.classList.toggle("show-mobile");
+                });
+            }
         </script>
 
     </body>
